@@ -9,7 +9,7 @@ env = environ.Env()
 environ.Env.read_env()
 
 # Base directory of the project
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret key (keep it secret in production)
 SECRET_KEY = os.getenv('SECRET_KEY3')
@@ -23,6 +23,8 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Installed applications
 INSTALLED_APPS = [
 	'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+	'rest_framework_simplejwt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -31,11 +33,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'corsheaders',
 	'user_conf_files',
+	'user_project',
 ]
 
 # Middleware configuration
 MIDDLEWARE = [
 	'corsheaders.middleware.CorsMiddleware',  # Must be at the top
+	# 'user_project.middleware.ForceHttpsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,15 +51,15 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-ORS_ALLOWED_ORIGINS = [
-    'http://localhost:5000',
-    'https://localhost:5000',
-]
+# ORS_ALLOWED_ORIGINS = [
+#     'http://localhost:5000',
+#     'https://localhost:5000',
+# ]
 
-SERVICE_ROUTES = {
-    '/ws': 'http://notify_service:3000',
-    '/game': 'http://game_service:5000',
-}
+# SERVICE_ROUTES = {
+#     '/ws': 'http://notify_service:3000',
+#     '/game': 'http://game_service:5000',
+# }
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -67,21 +71,23 @@ REST_FRAMEWORK = {
 }
 
 # Simple JWT settings (optional but recommended)
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-}
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'ROTATE_REFRESH_TOKENS': True,
+#     'BLACKLIST_AFTER_ROTATION': True,
+# }
 
 # URL configuration
-ROOT_URLCONF = 'user_conf_files.urls'
+ROOT_URLCONF = 'user_project.urls'
 
 # Template configuration
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'user_conf_files/templates', 
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,8 +101,20 @@ TEMPLATES = [
 ]
 
 # WSGI application
-WSGI_APPLICATION = 'user_conf_files.wsgi.application'
+WSGI_APPLICATION = 'user_project.wsgi.application'
+AUTH_USER_MODEL = 'user_conf_files.CustomUser'
 
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# DEFAULT_AVATAR_PATH = os.path.join(MEDIA_ROOT, 'avatars/default_avatar.png')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/register/'
+# USE_X_FORWARDED_HOST = True  # Trust the X-Forwarded-Host header
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Trust the X-Forwarded-Proto header
+# SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
+# SESSION_COOKIE_SECURE = True  # Ensure cookies are only sent over HTTPS
+# CSRF_COOKIE_SECURE = True  # CSRF cookies should be secure
 
 DATABASES = {
     'default': {

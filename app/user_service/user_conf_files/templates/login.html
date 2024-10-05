@@ -1,0 +1,18 @@
+<!-- user_conf_files/templates/login.html -->
+<h2>Login</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <label for="username_or_email">Username or Email:</label>
+  <input type="text" name="username_or_email" id="username_or_email">
+  
+  <button type="submit">Login</button>
+</form>
+
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

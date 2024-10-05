@@ -14,8 +14,7 @@ RUN apk update && apk add --no-cache \
     openssl-dev \
     pkgconfig \
     linux-headers \
-    build-base \
-    && apk del build-base
+    build-base 
 
 # Set the working directory in the container
 WORKDIR /code

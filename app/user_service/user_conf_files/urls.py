@@ -1,28 +1,19 @@
 # user_conf_files/urls.py
 
-from django.contrib import admin
-from django.urls import path, include
-from .views import get_data, different_name, UserViewSet  
-from django.shortcuts import redirect 
-from rest_framework import routers
-
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+from django.urls import path
+from rest_framework_simplejwt.views import TokenRefreshView
+from . import views
+from .views import register, CustomTokenObtainPairView
 
 urlpatterns = [
-    path('api/admin/', admin.site.urls),
-    path('', include(router.urls)),
-	path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/data/', get_data, name='get_data'),
-    path('api/code/data/', different_name, name='different_name'),
-    path('', lambda request: redirect('/admin')),  # Redirect root URL to the login page
-    path('accounts/', include('django.contrib.auth.urls')),  # This includes the login URL
-    # Include URLs from other apps
-    # path('app/', include('app.urls')),
+    # JWT Authentication
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),  # Use the custom view here
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/', views.login_view, name='login'),
+
+    path('register/', views.register, name='register'),
+
+    # API Views
+    path('data/', views.DataView.as_view(), name='data_view'),  # Custom view
+    path('code/data/', views.GetDataView.as_view(), name='get_data_view'),  # Custom function view
 ]

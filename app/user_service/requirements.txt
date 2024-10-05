@@ -1,6 +1,7 @@
 Django
 djangorestframework
 djangorestframework-simplejwt
+django-extensions
 gunicorn
 psycopg2-binary
 dj-database-url
@@ -9,3 +10,4 @@ whitenoise
 django-cors-headers
 requests
 httpx
+pillow
