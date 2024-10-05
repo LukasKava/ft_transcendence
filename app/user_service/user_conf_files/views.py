@@ -13,6 +13,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import CustomUser
@@ -28,19 +29,23 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     def validate(self, attrs):
         # Custom validation logic to log in without a password
-        username_or_email = attrs.get('username_or_email')
+        username = attrs.get('username')
         password = attrs.get('password')
-        try:
-            # Custom logic to find user by username or email
-            user = CustomUser.objects.get(username=username_or_email) or CustomUser.objects.get(email=username_or_email)
-        except CustomUser.DoesNotExist:
+        # Authenticate the user
+        user = authenticate(username=username, password=password)
+
+        if user is None:
             raise serializers.ValidationError('No active account found with the given credentials')
 
         # You may want to do some further checks here (e.g., user.is_active)
         
+        # Generate the token
+        refresh = RefreshToken.for_user(user)
+
         return {
-            'user': user.username,
-            'token': super().get_token(user),
+            'refresh': str(refresh),  # Ensure it's a string for JSON serialization
+            'access': str(refresh.access_token),  # Ensure access token is also serialized as a string
+            'username': user.username,
         }
 
 class CustomTokenObtainPairView(TokenObtainPairView):

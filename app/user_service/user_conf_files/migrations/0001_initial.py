@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
                 ('last_name', models.CharField(max_length=30, blank=True)),
 				('display_name', models.CharField(max_length=150, blank=True, null=True)),
                 ('is_active', models.BooleanField(default=True)),
-                ('is_staff' = models.BooleanField(default=False)), 
+                ('is_staff', models.BooleanField(default=False)), 
 
                 # Add other fields as needed
             ],

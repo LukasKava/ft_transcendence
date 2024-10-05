@@ -11,5 +11,9 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         (None, {'fields': ('display_name',)}),
     )
+    
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {'fields': ('display_name',)}),
+    )
 
 admin.site.register(CustomUser, CustomUserAdmin)

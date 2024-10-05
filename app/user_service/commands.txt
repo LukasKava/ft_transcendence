@@ -1,0 +1,10 @@
+http://127.0.0.1:8000/api/register/
+http://127.0.0.1:8000/admin
+http://127.0.0.1:8000/api/token/
+
+
+curl -X POST http://127.0.0.1:8000/api/token/ \
+-H "Content-Type: application/json" \
+-d '{"username":"karolina3", "password":"123"}'
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI4MTIzODI5LCJpYXQiOjE3MjgxMjM1MjksImp0aSI6ImQ1ZGE4NjdlYWVkODRmMDc5NmIyODIwNWE1ZjIzOTI5IiwidXNlcl9pZCI6MX0.yf3DyoMqHhG9rEasDtDBGofkkvAwBxLEDfNbl_zxv_0
