@@ -40,6 +40,10 @@ services:
     build: .
     container_name: user_service
     command: ./script.sh
+#This is only to mount the code to my local code during development
+#    volumes:
+#      - .:/app
+#Until this line
     ports:
       - "8000:8000"
     depends_on:

@@ -11,7 +11,7 @@ services:
     depends_on:
       game_postgres:
         condition: service_healthy
-    env_file:
+env_file:
       - .env
     restart: unless-stopped
     networks:
