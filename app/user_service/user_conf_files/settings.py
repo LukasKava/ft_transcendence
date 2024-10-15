@@ -12,7 +12,7 @@ environ.Env.read_env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Secret key (keep it secret in production)
-SECRET_KEY = os.getenv('SECRET_KEY3')
+SECRET_KEY = os.getenv('SECRET_KEY3', 'django-insecure-#&!@')  # Default value for development
 
 # Debug mode (set to True for development)
 DEBUG = True
@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'corsheaders',
 	'user_conf_files',
-	'management',
 
 ]
 
@@ -149,3 +148,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'user_conf_files.User'

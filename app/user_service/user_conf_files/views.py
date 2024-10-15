@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import viewsets
-from django.contrib.auth.models import User
+from .models import User
 from rest_framework import serializers
 
 # Serializer to convert User model instances to JSON format

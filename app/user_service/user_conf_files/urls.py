@@ -11,6 +11,10 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
+
+admin.site.site_header = 'Ekuchel\'s Administration'
+admin.site.index_title = 'Awesome Administration stuff'
+
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
@@ -23,5 +27,4 @@ urlpatterns = [
     path('api/code/data/', different_name, name='different_name'),
     path('', lambda request: redirect('/admin')),  # Redirect root URL to the login page
     path('accounts/', include('django.contrib.auth.urls')),  # This includes the login URL
-    path('api/user/', include('management.urls')),  # This includes the login URL
 ]
