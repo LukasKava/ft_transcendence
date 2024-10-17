@@ -30,4 +30,5 @@ urlpatterns = [
     path('', lambda request: redirect('/admin')),
     # This includes the login URL
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api/', include('users.urls')),
 ]
