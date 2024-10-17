@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 	'corsheaders',
 	'user_conf_files',
+	'users',
 
 ]
 
@@ -149,4 +150,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'user_conf_files.User'
+AUTH_USER_MODEL = 'users.User'
