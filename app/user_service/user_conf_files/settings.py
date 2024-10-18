@@ -1,5 +1,4 @@
 # settings.py
-
 from pathlib import Path
 import os
 import environ
@@ -22,13 +21,14 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Installed applications
 INSTALLED_APPS = [
-	'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'djoser',
 	'corsheaders',
 	'user_conf_files',
 	'users',
@@ -60,6 +60,7 @@ SERVICE_ROUTES = {
 }
 
 REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
@@ -70,7 +71,9 @@ REST_FRAMEWORK = {
 
 # Simple JWT settings (optional but recommended)
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    #'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), #After development this line should be valid 
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -151,3 +154,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'current_user': 'users.serializers.UserSerializer',
+    }
+}
