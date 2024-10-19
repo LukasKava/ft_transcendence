@@ -10,3 +10,4 @@ django-cors-headers
 requests
 httpx
 djoser
+drf-nested-routers

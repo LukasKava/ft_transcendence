@@ -1,11 +1,8 @@
 # user_conf_files/urls.py
-
 from django.contrib import admin
 from django.urls import path, include
 from .views import get_data, different_name
-from users.views import UserViewSet
 from django.shortcuts import redirect
-from rest_framework import routers
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -16,8 +13,6 @@ from rest_framework_simplejwt.views import (
 admin.site.site_header = 'Ekuchel\'s Administration'
 admin.site.index_title = 'Awesome Administration stuff'
 
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
@@ -30,15 +25,15 @@ urlpatterns = [
     path('', lambda request: redirect('/admin')),
     # This includes the login URL
     path('accounts/', include('django.contrib.auth.urls')),
-    path('api/', include('users.urls')),
+    path('users/', include('users.urls')),
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
 ]
 
 # AVAILABLE ENDPOINTS FOR DJOSER(JWT)
 
-# /jwt/create/ (JSON Web Token Authentication)
-# /jwt/refresh/ (JSON Web Token Authentication)
+# /jwt/create/ (JWT create a new user)
+# /jwt/refresh/ (JWT )
 # /jwt/verify/ (JSON Web Token Authentication)
 # /users/
 # /users/me/
