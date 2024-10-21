@@ -33,6 +33,5 @@ class Match(models.Model):
     score_player2 = models.IntegerField()
 
     def __str__(self):
-        return f'{self.player1.display_name} vs {self.player2.display_name} on {self.date}'
-
-    
+        return f'{self.player1.display_name} vs {self.player2.display_name}\
+                on {self.date}'

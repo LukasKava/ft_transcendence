@@ -14,18 +14,24 @@ admin.site.site_header = 'Ekuchel\'s Administration'
 admin.site.index_title = 'Awesome Administration stuff'
 
 
+# path('', include(router.urls)),
 urlpatterns = [
     path('api/admin/', admin.site.urls),
-    path('', include(router.urls)),
-   	path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/',
+         TokenObtainPairView.as_view(),
+         name='token_obtain_pair'),
+    path('api/token/refresh/',
+         TokenRefreshView.as_view(),
+         name='token_refresh'),
     path('api/data/', get_data, name='get_data'),
     path('api/code/data/', different_name, name='different_name'),
     # Redirect root URL to the login page
-    path('', lambda request: redirect('/admin')),
+    path('', lambda request: redirect('api/admin')),
     # This includes the login URL
     path('accounts/', include('django.contrib.auth.urls')),
+    # This path takes us to the profile/players endpoint
     path('users/', include('users.urls')),
+    # This paths are for entering the authentication endpoints
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.jwt')),
 ]

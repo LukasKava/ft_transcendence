@@ -22,6 +22,7 @@ def say_hello(request):
     return Response('Hello from Erwin')
 
 
-class PlayerViewSet(ModelViewSet):
-    query = Player.objects.all()
+class PlayerViewSet(viewsets.ModelViewSet):
+    queryset = Player.objects.all()
     serializer_class = PlayerSerializer
+    # permission_classes = [IsAuthenticated]
