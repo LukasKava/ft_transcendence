@@ -51,3 +51,5 @@ urlpatterns = [
 # /users/set_username/
 # /users/reset_username/
 # /users/reset_username_confirm/
+
+# Karo1 pw: ILoveDjango

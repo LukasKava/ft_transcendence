@@ -65,6 +65,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
+        #'rest_framework.permissions.AllowAny',  #This is for development
         'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
     ),
 }
@@ -72,7 +73,7 @@ REST_FRAMEWORK = {
 # Simple JWT settings (optional but recommended)
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1), # This is for development
     #'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), #After development this line should be valid 
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,

@@ -13,8 +13,7 @@ class Player(models.Model):
         upload_to='avatars/', default='avatars/default.png')
     wins = models.IntegerField(default=0)
     losses = models.IntegerField(default=0)
-    friends = models.ManyToManyField(
-        "self", blank=True, related_name="friends_with")
+    friends = models.ManyToManyField("self", blank=True)
     online_status = models.BooleanField(default=False)
 
     def __str__(self):

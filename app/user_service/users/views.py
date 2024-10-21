@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view
-from rest_framework import generics, viewsets, ModelViewSet
+from rest_framework import generics, viewsets
 from rest_framework.response import Response
 from .serializers import UserSerializer, PlayerSerializer
 from .models import User, Player

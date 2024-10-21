@@ -1,9 +1,9 @@
 from django.urls import include, path
-from rest_framework.routers import DefaultRouter
-#from rest_framework_nested import routers
+#from rest_framework.routers import DefaultRouter
+from rest_framework_nested import routers
 from . import views
 
-router = DefaultRouter()
+router = routers.DefaultRouter()
 router.register('players', views.PlayerViewSet)
 
 #players_router = routers.NestedDefaultRouter(
@@ -11,4 +11,7 @@ router.register('players', views.PlayerViewSet)
 #players_router.register('match', views.StatsViewSet, basename='player-match')
 
 
-urlpatterns = router.urls
+urlpatterns = [
+        path('', include(router.urls)),
+        #path('', include(players_router.urls)
+    ]
