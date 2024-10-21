@@ -4,7 +4,7 @@ from rest_framework_nested import routers
 from . import views
 
 router = routers.DefaultRouter()
-router.register('players', views.PlayerViewSet)
+router.register('players', views.PlayerProfileViewSet)
 
 #players_router = routers.NestedDefaultRouter(
 #    router, 'players', lookup='player')

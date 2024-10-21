@@ -6,11 +6,11 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
 
 
-class Player(models.Model):
+class PlayerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=50, unique=True)
     avatar = models.ImageField(
-        upload_to='avatars/', default='avatars/default.png')
+        upload_to='avatars/', default='avatars/default.png', null=True, blank=True)
     wins = models.IntegerField(default=0)
     losses = models.IntegerField(default=0)
     friends = models.ManyToManyField("self", blank=True)
@@ -22,11 +22,11 @@ class Player(models.Model):
 
 class Match(models.Model):
     player1 = models.ForeignKey(
-        Player, related_name='player1_matches', on_delete=models.CASCADE)
+        PlayerProfile, related_name='player1_matches', on_delete=models.CASCADE)
     player2 = models.ForeignKey(
-        Player, related_name='player2_matches', on_delete=models.CASCADE)
+        PlayerProfile, related_name='player2_matches', on_delete=models.CASCADE)
     winner = models.ForeignKey(
-        Player, related_name='won_matches', on_delete=models.CASCADE)
+        PlayerProfile, related_name='won_matches', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     score_player1 = models.IntegerField()
     score_player2 = models.IntegerField()

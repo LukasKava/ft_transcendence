@@ -37,7 +37,6 @@ urlpatterns = [
 ]
 
 # AVAILABLE ENDPOINTS FOR DJOSER(JWT)
-
 # /jwt/create/ (JWT create a new user)
 # /jwt/refresh/ (JWT )
 # /jwt/verify/ (JSON Web Token Authentication)
@@ -52,4 +51,3 @@ urlpatterns = [
 # /users/reset_username/
 # /users/reset_username_confirm/
 
-# Karo1 pw: ILoveDjango

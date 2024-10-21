@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer as BaseUserCreateSerializer
 from djoser.serializers import UserSerializer as BaseUserSerializer
-from .models import User, Player, Match
+from .models import User, PlayerProfile, Match
 
 
 # for creating a new user, which information is asked
@@ -20,15 +20,17 @@ class UserSerializer(BaseUserSerializer):
 
 
 # Serializer for Player
-class PlayerSerializer(serializers.ModelSerializer):
-    class Meta():
-        model = Player
-        fields = ['id', 'diplay_name', 'avatar',
-                  'wins', 'losses', 'friends' 'online_status']
+class PlayerProfileSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = PlayerProfile
+        fields = ['user_id', 'display_name', 'avatar',
+                  'wins', 'losses', 'friends', 'online_status']
 
 
 class MatchSerializer(serializers.ModelSerializer):
-    class Meta():
+    class Meta:
         model = Match
         fields = ['player1', 'player2', 'winner',
                   'date', 'score_player1', 'score_player2']
