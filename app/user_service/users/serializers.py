@@ -22,11 +22,12 @@ class UserSerializer(BaseUserSerializer):
 # Serializer for Player
 class PlayerProfileSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(read_only=True)
+    profile_id = serializers.IntegerField(read_only=True, source='id')
 
     class Meta:
         model = PlayerProfile
         fields = ['user_id', 'display_name', 'avatar',
-                  'wins', 'losses', 'friends', 'online_status']
+                  'wins', 'losses', 'profile_id', 'friends', 'online_status']
 
 
 class MatchSerializer(serializers.ModelSerializer):
