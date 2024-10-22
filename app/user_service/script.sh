@@ -5,9 +5,10 @@ Script for user
 "
 
 # Make migrations and apply them
-rm user_conf_files/migrations/0001_initial.py
+# rm user_conf_files/migrations/0001_initial.py
 
-python3 manage.py makemigrations user_conf_files
+python3 manage.py test app_friends
+python3 manage.py makemigrations app_friends
 python3 manage.py makemigrations && \
 python3 manage.py migrate auth && \
 python3 manage.py migrate --noinput 

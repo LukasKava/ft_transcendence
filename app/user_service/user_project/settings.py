@@ -32,8 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'corsheaders',
-	'user_conf_files',
-	'user_project',
+	'app_friends',
 ]
 
 # Middleware configuration
@@ -51,32 +50,14 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# ORS_ALLOWED_ORIGINS = [
-#     'http://localhost:5000',
-#     'https://localhost:5000',
-# ]
-
-# SERVICE_ROUTES = {
-#     '/ws': 'http://notify_service:3000',
-#     '/game': 'http://game_service:5000',
-# }
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
+    # ),
 }
-
-# Simple JWT settings (optional but recommended)
-# SIMPLE_JWT = {
-#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#     'ROTATE_REFRESH_TOKENS': True,
-#     'BLACKLIST_AFTER_ROTATION': True,
-# }
 
 # URL configuration
 ROOT_URLCONF = 'user_project.urls'
@@ -86,7 +67,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'user_conf_files/templates', 
+            BASE_DIR / 'app_friends/templates', 
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -102,14 +83,10 @@ TEMPLATES = [
 
 # WSGI application
 WSGI_APPLICATION = 'user_project.wsgi.application'
-AUTH_USER_MODEL = 'user_conf_files.CustomUser'
+# AUTH_USER_MODEL = 'user_conf_files.CustomUser'
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# DEFAULT_AVATAR_PATH = os.path.join(MEDIA_ROOT, 'avatars/default_avatar.png')
-
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/register/'
+# LOGIN_URL = '/login/'
+# LOGIN_REDIRECT_URL = '/register/'
 # USE_X_FORWARDED_HOST = True  # Trust the X-Forwarded-Host header
 # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Trust the X-Forwarded-Proto header
 # SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
@@ -126,7 +103,6 @@ DATABASES = {
         'PORT': os.environ.get('DB_UP_PORT'),
     }
 }
-
 
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
@@ -146,7 +122,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:8081')
+# FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:8081')
 
 CORS_ALLOW_CREDENTIALS = True
 
