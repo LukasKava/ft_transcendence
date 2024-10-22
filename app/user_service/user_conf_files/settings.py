@@ -1,5 +1,4 @@
 # settings.py
-
 from pathlib import Path
 import os
 import environ
@@ -12,7 +11,7 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Secret key (keep it secret in production)
-SECRET_KEY = os.getenv('SECRET_KEY3')
+SECRET_KEY = os.getenv('SECRET_KEY3', 'django-insecure-#&!@')  # Default value for development
 
 # Debug mode (set to True for development)
 DEBUG = True
@@ -22,23 +21,24 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Installed applications
 INSTALLED_APPS = [
-	'rest_framework',
-    'rest_framework_simplejwt.token_blacklist',
-	'rest_framework_simplejwt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'djoser',
 	'corsheaders',
-	'app_friends',
+	# 'app_friends',
+	'user_conf_files',
+	'users',
 ]
 
 # Middleware configuration
 MIDDLEWARE = [
 	'corsheaders.middleware.CorsMiddleware',  # Must be at the top
-	# 'user_project.middleware.ForceHttpsMiddleware',
+	# 'user_conf_files.middleware.ForceHttpsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,24 +51,33 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
-    # ),
+    'DEFAULT_PERMISSION_CLASSES': (
+         'rest_framework.permissions.AllowAny',  #This is for development
+        # 'rest_framework.permissions.IsAuthenticated',  # Require authentication for all views by default
+    ),
+}
+
+# Simple JWT settings (optional but recommended)
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1), # This is for development
+    #'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), #After development this line should be valid 
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
 }
 
 # URL configuration
-ROOT_URLCONF = 'user_project.urls'
+ROOT_URLCONF = 'user_conf_files.urls'
 
 # Template configuration
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / 'app_friends/templates', 
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -82,16 +91,8 @@ TEMPLATES = [
 ]
 
 # WSGI application
-WSGI_APPLICATION = 'user_project.wsgi.application'
-# AUTH_USER_MODEL = 'user_conf_files.CustomUser'
+WSGI_APPLICATION = 'user_conf_files.wsgi.application'
 
-# LOGIN_URL = '/login/'
-# LOGIN_REDIRECT_URL = '/register/'
-# USE_X_FORWARDED_HOST = True  # Trust the X-Forwarded-Host header
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Trust the X-Forwarded-Proto header
-# SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
-# SESSION_COOKIE_SECURE = True  # Ensure cookies are only sent over HTTPS
-# CSRF_COOKIE_SECURE = True  # CSRF cookies should be secure
 
 DATABASES = {
     'default': {
@@ -141,3 +142,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'users.User'
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserCreateSerializer',
+        'current_user': 'users.serializers.UserSerializer',
+    }
+}

@@ -10,4 +10,6 @@ whitenoise
 django-cors-headers
 requests
 httpx
-pillow
+djoser
+drf-nested-routers
+Pillow

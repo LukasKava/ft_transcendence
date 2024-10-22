@@ -36,20 +36,42 @@ services:
       - "user_network"
     restart: unless-stopped
 
+      #  user_django:
+      #    build: .
+      #    container_name: user_service
+      #    command: ./script.sh
+      #    ports:
+      #      - "8000:8000"
+      #    depends_on:
+      #      postgres_user:
+      #        condition: service_healthy
+      #    env_file:
+      #      - ../../.env
+      #    restart: unless-stopped
+      #    networks:
+      #      - "user_network"
   user_django:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
     container_name: user_service
     command: ./script.sh
+      #command: python manage.py runserver 0.0.0.0:8000  # Use Django dev server for auto-reload
     ports:
       - "8000:8000"
+    environment:
+      POSTGRES_HOST: postgres_user
+      POSTGRES_PORT: 5433
     depends_on:
       postgres_user:
         condition: service_healthy
-    networks:
-      - "user_network"
     env_file:
       - ../../.env
+    volumes:
+      - ./:/code  # Mount the local user_service folder to /code inside the container
     restart: unless-stopped
+    networks:
+      - "user_network"
 
   # nginx_gateway:
   #   container_name: nginx_gateway
