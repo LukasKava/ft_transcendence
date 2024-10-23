@@ -5,8 +5,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, S
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.exceptions import AuthenticationFailed
 from django.http import HttpResponseRedirect
-from .serializers import UserSerializer, PlayerProfileSerializer
-from .models import User, PlayerProfile
+from .serializers import UserSerializer, PlayerProfileSerializer, MatchSerializer
+from .models import User, PlayerProfile, Match
 from .permissions import IsAdminOrReadOnly
 # Create your views here.
 
@@ -54,3 +54,18 @@ class PlayerProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixi
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
+
+
+class MatchViewSet(viewsets.ModelViewSet):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+    permission_classes = [IsAuthenticated]
+
+#    def get_queryset(self):
+#        if self.request.user.is_staff:
+#            return Match.objects.all()
+#
+#        (id, created) = Match.objects.only('id').get_or_create(id=self.request.user.id)
+#        return Match.objects.filter(id=id)
+#return Match.objects.filter(id=self.request.user.id)
+

@@ -5,6 +5,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('players', views.PlayerProfileViewSet)
+router.register('matches', views.MatchViewSet, basename='matches')
 
 #players_router = routers.NestedDefaultRouter(
 #    router, 'players', lookup='player')
