@@ -15,7 +15,7 @@ class BasicUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'status']
+        fields = ['user_id', 'username', 'status']
 
     def get_status(self, obj):
         user = self.context['request'].user
