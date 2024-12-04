@@ -19,7 +19,6 @@ class BasicUserSerializer(serializers.ModelSerializer):
 
     def get_status(self, obj):
         user = self.context['request'].user
-        
         try:
             friendship = Friendship.objects.get(sender=user, receiver=obj)
 

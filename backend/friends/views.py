@@ -8,7 +8,7 @@ from .utils import respond_success, respond_error, respond_bad_request
 from django.core.exceptions import ObjectDoesNotExist
 from .serializers import FriendshipSerializer, BasicUserSerializer
 from .models import Friendship, FriendshipHistory
-from users.models import User
+from users.models import User, PlayerProfile
 from users.signals import friendship_created, friendship_destroyed
 from django.conf import settings
 from django.db.models import Q
