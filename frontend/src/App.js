@@ -1,6 +1,7 @@
 //import React from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import React, { useContext, useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { NotFound, Unauthorized, ServerError, BadGateway, GatewayTimeout, RequestTimeout } from './pages/ErrorPages';
 import { GameProvider } from "./context/GameContext"; 
 import { AuthGuard } from './guards/authGuard';
 import { OAuth42CallbackHandler } from './guards/intraPlayerGuard';
