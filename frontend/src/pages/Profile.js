@@ -89,7 +89,7 @@ const Profile = () => {
 	
 	useEffect(() => {
 		loadProfile();
-	}, [setOtpActive]);
+	}, []);
 
 	useEffect(() => {
 		const token = localStorage.getItem('access_token'); // Assuming JWT or similar token
@@ -194,20 +194,13 @@ const Profile = () => {
 		}
 	};
 
-	// Function to handle successful password authentication
+	
 	const handlePasswordSuccess = () => {
-
-			// console.log('Password successfully authenticated (handlePasswordSuccess)');
-
-			setPasswordModalOpen(false);
-			setOtpActive(true); 
-			// console.log('after closing the passwordmodal.');
-
-			// Optionally, you can call handleToggle2FA here if needed
-			//handleToggle2FA();
+		setIsSaving2FA(true);
+		setPasswordModalOpen(false);
+		setOtpActive(true); 
 	};
-	// Handler for initiating 2FA toggle
-	// Opens password confirmation modal instead of immediately toggling
+
 	const handleInitiateToggle2FA = () => {
 		if (!profile.otp_active) {
 			setPasswordModalOpen(true);
@@ -216,10 +209,8 @@ const Profile = () => {
 		}
 	};
 
-	// Handler for toggling 2FA status after password confirmation
-	// Makes a PATCH request to update the otp_active status
-	// Updates local state to reflect the change
-const handleToggle2FA = async (password = null) => {
+	
+	const handleToggle2FA = async (password = null) => {
 	// console.log('in active to false.');
 	setIsSaving2FA(true);
 	const userId = localStorage.getItem('user_id');
@@ -378,7 +369,13 @@ const handleToggle2FA = async (password = null) => {
 						onSubmit={handlePasswordSuccess}
 						onPasswordSuccess={handlePasswordSuccess} // Pass the callback
 					/>
-					{isOtpActive && <Otp onSuccess={() => setOtpActive(false)} />}
+					{isOtpActive && <Otp onSuccess={() => { setOtpActive(false)
+															setIsSaving2FA(false)
+															setProfile(prev => ({
+																...prev,
+																otp_active: !prev.otp_active
+															})); }}/>
+					}
 				</div>
 				<StatisticsCard	losses={profile.losses}
 								wins={profile.wins}
