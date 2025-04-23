@@ -181,9 +181,14 @@ const LogIn = () => {
 				}
 			}	
 		}
+		const scaleStyle = {
+			fontSize: `${fontSize}px`,
+			height: `${height - 90}px`,
+			lineHeight: '1.5'
+		};
 
 	return (
-		<div className="login" style={{ fontSize: `${fontSize}px`, height: `${height - 90}px` }}>
+		<div className="login" style={scaleStyle}>
 			<div className="loginContentWrapper">
 				<h1 className="login-title pageHeadingH1Style1">
 					{t("LogInTitle")}
@@ -199,7 +204,7 @@ const LogIn = () => {
 								checked={isSignUp}
 								onChange={handleCheckboxChange}
 							/>
-							<label htmlFor="status" className="status-label m-0">
+							<label htmlFor="status" className="status-label">
 								<div className="status-switch m-0 p-0">
 									<div className="highlight"></div>
 									<span className="text unchecked">{t("LogInText")}</span>

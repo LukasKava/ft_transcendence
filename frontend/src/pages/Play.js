@@ -5,6 +5,8 @@ import { AccessibilityContext } from '../AccessibilityContext';
 import PlayNotLoggedIn from '../components/PlayComponents/PlayNotLoggedIn';
 import PlayTournamentSetup from '../components/PlayComponents/PlayTournamentSetup';
 import PlayMultiplayerMode from '../components/PlayComponents/PlayMultiplayerMode';
+import MultiplayerOnline from '../components/PlayComponents/MultiplayerOnline';
+import TournamentOnline from '../components/PlayComponents/TournamentOnline';
 import Pong from '../components/PlayComponents/Pong'
 import TournamentScreen from '../components/PlayComponents/TournamentScreen';
 import { GameContext } from "../context/GameContext";
@@ -132,6 +134,8 @@ const Play = () => {
 				) : (
 					<>
 						<div className="d-flex flex-row flex-wrap playPageCardWrapper m-0">
+							<MultiplayerOnline scaleStyle={scaleStyle} />
+							<TournamentOnline scaleStyle={scaleStyle} />
 							<PlayMultiplayerMode scaleStyle={scaleStyle} />
 							<PlayTournamentSetup setForceUpdate={setForceUpdate} scaleStyle={scaleStyle}/>
 						</div>
